@@ -1,5 +1,7 @@
 <resources>
+    android:hint="@string/hinttext"
     <string name="app_name">HoangANhNguyen\'s Android Labs</string>
     <string name="hello_message">Hello World!   </string>
     <string name="button_message">I\'m a Button</string>
+    <string name="editmessage">Edit Text</string>
 </resources>

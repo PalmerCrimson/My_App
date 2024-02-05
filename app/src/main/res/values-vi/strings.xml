@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
+
     <string name="app_name">HoangANhNguyen\'s Android Labs</string>
     <string name="hello_message">Xin Chao!</string>
     <string name="button_message">Toi la cai nut</string>
