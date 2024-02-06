@@ -5,4 +5,10 @@
     <string name="app_name">HoangANhNguyen\'s Android Labs</string>
     <string name="hello_message">Xin Chao!</string>
     <string name="button_message">Toi la cai nut</string>
+    <string name="spin_message">spin flag</string>
+    <string name="b1">nut 1</string>
+    <string name="b2">nut 2</string>
+    <string name="b3">nut 3</string>
+
+
 </resources>

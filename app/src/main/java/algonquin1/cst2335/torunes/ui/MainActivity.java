@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import algonquin1.cst2335.torunes.R;
@@ -16,56 +21,34 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel model;
     private ActivityMainBinding variableBinding;
 
+    ImageView imgView;
+    Switch sw;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        model = new ViewModelProvider(this).get(MainViewModel.class);
+        imgView = findViewById(R.id.flagview);
+        sw = findViewById(R.id.switch1);
 
+        sw.setOnCheckedChangeListener( (btn, isChecked) -> {
+            if (isChecked)
+            {
+                RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotate.setDuration(5000);
+                rotate.setRepeatCount(Animation.INFINITE);
+                rotate.setInterpolator(new LinearInterpolator());
 
-        variableBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(variableBinding.getRoot());
-
-
-        Button btn = findViewById(R.id.button1);
-        EditText myedit = findViewById(R.id.myEditText );
-
-        variableBinding.button.setOnClickListener(click ->
-        {
-            model.editString.postValue(variableBinding.myEditText.getText().toString());
-            model.editString.observe(this,s -> {
-                variableBinding.textview.setText( "Your edit text has: " + s);
-            });
-
+                imgView.startAnimation(rotate);
+            }else {
+                imgView.clearAnimation();
+            }
 
         });
 
-            model.isSelected.observe(this,selected -> {
-                variableBinding.checkbox.setChecked(selected);
-                variableBinding.radio.setChecked(selected);
-                variableBinding.switch1.setChecked(selected);
-            });
-
-        variableBinding.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            model.isSelected.postValue(isChecked);
-        });
-
-        variableBinding.radio.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            model.isSelected.postValue(isChecked);
-        });
-
-        variableBinding.switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            model.isSelected.postValue(isChecked);
-        });
-
-        variableBinding.myImageButton.setOnClickListener(v -> {
-            int width = variableBinding.myImageButton.getWidth();
-            int height = variableBinding.myImageButton.getHeight();
-
-            // Show a Toast with width and height information
-            Toast.makeText(this, "The width = " + width + " and height = " + height, Toast.LENGTH_SHORT).show();
-        });
 
     }
+
 }

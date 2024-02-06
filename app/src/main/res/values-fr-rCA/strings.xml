@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HoangANhNguyen\'s Android Labs</string>
+    <string name="spin_message">" faire tourner le plag"</string>
+    <string name="b1">bouton 1</string>
+    <string name="b2">bouton 2</string>
+    <string name="b3">bouton 3</string>
+
+
+</resources>

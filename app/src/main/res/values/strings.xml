@@ -4,4 +4,8 @@
     <string name="hello_message">Hello World!   </string>
     <string name="button_message">I\'m a Button</string>
     <string name="editmessage">Edit Text</string>
+    <string name="spin_message">Switch</string>
+    <string name="b1">button 1</string>
+    <string name="b2">button 2</string>
+    <string name="b3">button 3</string>
 </resources>
