@@ -14,7 +14,9 @@ import android.widget.Toast;
  */
 public class MainActivity extends AppCompatActivity {
     /** this holds the text at the center of the screen */
+
     private TextView tv = null;
+
 
     /** this holds the text field at the center of the screen */
     private EditText et = null;
