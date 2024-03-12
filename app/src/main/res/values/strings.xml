@@ -2,4 +2,6 @@
     <string name="app_name">HoangANhNguyen\'s Android Labs</string>
     <string name="hello_message">Hello World!   </string>
     <string name="button_message">I\'m a Button</string>
+    <string name="sendB">Send</string>
+    <string name="receiveB">receive</string>
 </resources>

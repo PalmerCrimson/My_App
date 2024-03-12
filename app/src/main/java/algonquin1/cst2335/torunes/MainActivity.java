@@ -14,7 +14,9 @@ import android.widget.Toast;
  */
 public class MainActivity extends AppCompatActivity {
     /** this holds the text at the center of the screen */
+
     private TextView tv = null;
+
 
     /** this holds the text field at the center of the screen */
     private EditText et = null;
@@ -26,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         tv = findViewById(R.id.passwordTextView);
-         et = findViewById(R.id.passwordEditText);
+        tv = findViewById(R.id.passwordTextView);
+        et = findViewById(R.id.passwordEditText);
         btn = findViewById(R.id.loginButton);
 
         btn.setOnClickListener( clk ->{
