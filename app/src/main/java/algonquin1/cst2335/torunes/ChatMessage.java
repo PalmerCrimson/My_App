@@ -7,11 +7,16 @@ import androidx.room.Ignore;
 
 import java.util.ArrayList;
 
-
+@Entity
 public class ChatMessage {
-
-    String message;
+    @PrimaryKey (autoGenerate = true)
+    @ColumnInfo (name="id")
+    public int id;
+    @ColumnInfo (name="message")
+    protected String message;
+    @ColumnInfo (name="timeSent")
     String timeSent;
+    @ColumnInfo (name="isSentButton")
     boolean isSentButton;
     public ChatMessage(){}
     ChatMessage(String m, String t, boolean sent) {
