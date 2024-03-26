@@ -13,6 +13,9 @@ import algonquin1.cst2335.torunes.databinding.ReceiveMessageBinding;
 import algonquin1.cst2335.torunes.databinding.SentMessageBinding;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -36,17 +39,33 @@ public class ChatRoom extends AppCompatActivity {
     String currentDateandTime = sdf.format(new Date());
     private ChatMessageDAO mDAO;
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+
+
+
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.toolbar);
+
         chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
+
         messages = chatModel.messages.getValue();
         if (messages == null) {
             chatModel.messages.postValue(messages = new ArrayList<>());
         }
 
-        binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
 
         binding.sendButton.setOnClickListener(click -> {
             String message = binding.textInput.getText().toString();
@@ -96,6 +115,8 @@ public class ChatRoom extends AppCompatActivity {
                 ChatMessage obj = messages.get(position);
                 return obj.isSentButton ? 0 : 1;
             }
+
+
         });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -109,6 +130,64 @@ public class ChatRoom extends AppCompatActivity {
                 messages.addAll( mDAO.getAllMessages() ); //Once you get the data from database
                 runOnUiThread( () ->  binding.recyclerView.setAdapter( myAdapter )); //You can then load the RecyclerView
             });
+        }
+
+    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        TextView messageText;
+//        TextView timeText;
+//        switch( item.getItemId()== R.id.item_1)
+//        {
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
+//            builder.setMessage("Do you want to delete all messages?")
+//                    .setTitle("Delete All Messages")
+//                    .setNegativeButton("No", (dialog, click) -> {})
+//                    .setPositiveButton("Yes", (dialog, click) -> {
+//                        int messageCount = messages.size();
+//                        messages.clear();
+//                        myAdapter.notifyDataSetChanged();
+//                        Snackbar.make(messageText, "You deleted all " + messageCount + " messages", Snackbar.LENGTH_LONG)
+//                                .setAction("Undo", cl -> {
+//                                    // Add code to restore deleted messages if needed
+//                                })
+//                                .show();
+//                    }).create().show();
+//            return true;
+//        }
+//
+//        return true;
+//    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        final int itemId = item.getItemId();
+        if (itemId == R.id.item_1) {
+            // Alert dialog for deleting all messages
+            AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
+            builder.setMessage("Do you want to delete all messages?")
+                    .setTitle("Delete All Messages")
+                    .setNegativeButton("No", (dialog, click) -> {
+                    })
+                    .setPositiveButton("Yes", (dialog, click) -> {
+                        int messageCount = messages.size();
+                        messages.clear();
+                        myAdapter.notifyDataSetChanged();
+                        Snackbar.make(binding.recyclerView, "You deleted all " + messageCount + " messages", Snackbar.LENGTH_LONG)
+
+                                .show();
+                    }).create().show();
+            return true;
+        } else if(itemId == R.id.item_2) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Help")
+                    .setMessage("This is a message app. You can delete message by hitting delete all.")
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .show();
+            return true;
+        }else{
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -129,6 +208,7 @@ public class ChatRoom extends AppCompatActivity {
                         .setPositiveButton("Yes", (dialog, click) -> {
                             ChatMessage removMessage = messages.get(position);
                             messages.remove(position);
+
                             myAdapter.notifyItemRemoved(position);
 
                             Snackbar.make(messageText, "You deleted message #"+ position, Snackbar.LENGTH_LONG)
@@ -142,6 +222,11 @@ public class ChatRoom extends AppCompatActivity {
 
             messageText = itemView.findViewById(R.id.message);
             timeText = itemView.findViewById(R.id.time);
- }
-}
+        }
+
+
+
+    }
+
+
 }
